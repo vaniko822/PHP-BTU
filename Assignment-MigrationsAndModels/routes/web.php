@@ -25,3 +25,12 @@ Route::post('/quizzes', [QuizController::class, 'createOrUpdate']);
 
 Route::get('/example-route', function () {
 })->middleware('name.check');
+
+Route::prefix('admin')->group(function () {
+    Route::resource('posts', 'Admin\PostController');
+});
+
+Route::resource('comments', 'CommentController')->only(['index', 'destroy']);
+
+Route::get('/', 'MainController@index');
+Route::get('posts/{post}', 'MainController@show');
